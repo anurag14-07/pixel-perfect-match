@@ -10,12 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as AnalysisIdRouteImport } from './routes/analysis.$id'
 import { Route as ApiAnalyzeRouteImport } from './routes/api/analyze'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as CareIndexRouteImport } from './routes/care.index'
+import { Route as CareProviderIdRouteImport } from './routes/care.$providerId'
+import { Route as NextStepsIdRouteImport } from './routes/next-steps.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalysisIdRoute = AnalysisIdRouteImport.update({
+  id: '/analysis/$id',
+  path: '/analysis/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAnalyzeRoute = ApiAnalyzeRouteImport.update({
@@ -28,35 +43,95 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareIndexRoute = CareIndexRouteImport.update({
+  id: '/care/',
+  path: '/care/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareProviderIdRoute = CareProviderIdRouteImport.update({
+  id: '/care/$providerId',
+  path: '/care/$providerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextStepsIdRoute = NextStepsIdRouteImport.update({
+  id: '/next-steps/$id',
+  path: '/next-steps/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/reports': typeof ReportsRoute
+  '/analysis/$id': typeof AnalysisIdRoute
   '/api/analyze': typeof ApiAnalyzeRoute
   '/api/chat': typeof ApiChatRoute
+  '/care/$providerId': typeof CareProviderIdRoute
+  '/next-steps/$id': typeof NextStepsIdRoute
+  '/care/': typeof CareIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/reports': typeof ReportsRoute
+  '/analysis/$id': typeof AnalysisIdRoute
   '/api/analyze': typeof ApiAnalyzeRoute
   '/api/chat': typeof ApiChatRoute
+  '/care/$providerId': typeof CareProviderIdRoute
+  '/next-steps/$id': typeof NextStepsIdRoute
+  '/care': typeof CareIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/reports': typeof ReportsRoute
+  '/analysis/$id': typeof AnalysisIdRoute
   '/api/analyze': typeof ApiAnalyzeRoute
   '/api/chat': typeof ApiChatRoute
+  '/care/$providerId': typeof CareProviderIdRoute
+  '/next-steps/$id': typeof NextStepsIdRoute
+  '/care/': typeof CareIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/analyze' | '/api/chat'
+  fullPaths:
+    | '/'
+    | '/reports'
+    | '/analysis/$id'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/care/$providerId'
+    | '/next-steps/$id'
+    | '/care/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/analyze' | '/api/chat'
-  id: '__root__' | '/' | '/api/analyze' | '/api/chat'
+  to:
+    | '/'
+    | '/reports'
+    | '/analysis/$id'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/care/$providerId'
+    | '/next-steps/$id'
+    | '/care'
+  id:
+    | '__root__'
+    | '/'
+    | '/reports'
+    | '/analysis/$id'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/care/$providerId'
+    | '/next-steps/$id'
+    | '/care/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ReportsRoute: typeof ReportsRoute
+  AnalysisIdRoute: typeof AnalysisIdRoute
   ApiAnalyzeRoute: typeof ApiAnalyzeRoute
   ApiChatRoute: typeof ApiChatRoute
+  CareProviderIdRoute: typeof CareProviderIdRoute
+  NextStepsIdRoute: typeof NextStepsIdRoute
+  CareIndexRoute: typeof CareIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +141,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analysis/$id': {
+      id: '/analysis/$id'
+      path: '/analysis/$id'
+      fullPath: '/analysis/$id'
+      preLoaderRoute: typeof AnalysisIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/analyze': {
@@ -82,13 +171,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/care/': {
+      id: '/care/'
+      path: '/care'
+      fullPath: '/care/'
+      preLoaderRoute: typeof CareIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/care/$providerId': {
+      id: '/care/$providerId'
+      path: '/care/$providerId'
+      fullPath: '/care/$providerId'
+      preLoaderRoute: typeof CareProviderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/next-steps/$id': {
+      id: '/next-steps/$id'
+      path: '/next-steps/$id'
+      fullPath: '/next-steps/$id'
+      preLoaderRoute: typeof NextStepsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ReportsRoute: ReportsRoute,
+  AnalysisIdRoute: AnalysisIdRoute,
   ApiAnalyzeRoute: ApiAnalyzeRoute,
   ApiChatRoute: ApiChatRoute,
+  CareProviderIdRoute: CareProviderIdRoute,
+  NextStepsIdRoute: NextStepsIdRoute,
+  CareIndexRoute: CareIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
