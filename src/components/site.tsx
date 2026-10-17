@@ -106,7 +106,7 @@ export function StatusBadge({ status }: { status: string }) {
     unknown: "bg-muted text-muted-foreground",
   };
   return (
-    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide ${map[status] ?? map.unknown}`}>
+    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide ${map[status] ?? map["unknown"]}`}>
       {status}
     </span>
   );
@@ -119,7 +119,7 @@ export function useReportUpload(onDone?: (id: string) => void) {
   const handle = async (file?: File) => {
     if (!file) return;
     const err = validateReportFile(file);
-    if (err) return toast.error(err);
+    if (err) { toast.error(err); return; }
     setBusy(true);
     const t = toast.loading("Analyzing your report…");
     try {

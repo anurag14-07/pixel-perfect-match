@@ -37,8 +37,8 @@ function ProviderPage() {
   const slots = availableSlots(p.id, date, booked);
 
   const book = () => {
-    if (!time) return toast.error("Please choose a time slot.");
-    if (name.trim().length < 2) return toast.error("Please enter the patient's name.");
+    if (!time) { toast.error("Please choose a time slot."); return; }
+    if (name.trim().length < 2) { toast.error("Please enter the patient name."); return; }
     const b: Booking = { id: crypto.randomUUID(), providerId: p.id, date: dateKey(date), time, patient: name.trim().slice(0, 80) };
     addBooking(b);
     setConfirmed(b);
